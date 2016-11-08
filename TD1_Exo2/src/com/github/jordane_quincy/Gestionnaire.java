@@ -16,33 +16,43 @@ public class Gestionnaire extends Thread {
 				int index = 0;
 				Document docToPrint = fileAttente.get(index);
 
-				System.out.println("Impression du doc de l'utilisateur " + docToPrint.getIdUtilisateur() + " ("
-						+ docToPrint.getDureeImpression() + ")");
+				System.out.println(getTimestamp() + "Impression du doc de l'utilisateur "
+						+ docToPrint.getIdUtilisateur() + " (" + docToPrint.getDureeImpression() + ")");
 
 				try {
 					Thread.currentThread().sleep(docToPrint.getDureeImpression());
 				} catch (InterruptedException e) {
 				}
 
-				System.out.println("Fin impression du doc de l'utilisateur " + docToPrint.getIdUtilisateur());
+				System.out.println(
+						getTimestamp() + "Fin impression du doc de l'utilisateur " + docToPrint.getIdUtilisateur());
 
 				fileAttente.remove(index);
+			} else {
+				System.err.println("La file d'impression est vide");
+
+				try {
+					Thread.currentThread().sleep(1000);
+				} catch (InterruptedException e) {
+				}
 			}
 
-			try {
-				Thread.currentThread().sleep(100);
-			} catch (InterruptedException e) {
-			}
 		}
 	}
 
 	public synchronized boolean ajouterDoc(Document doc) {
 		boolean isAjoutOk = false;
 		if (fileAttente.size() <= TAILLE_FILE) {
+			System.out.println(getTimestamp() + "fileAttente : " + fileAttente.size() + "/" + TAILLE_FILE
+					+ ". Doc user : " + doc.getIdUtilisateur());
 			fileAttente.add(doc);
 			isAjoutOk = true;
 		}
 		return isAjoutOk;
+	}
+
+	public String getTimestamp() {
+		return System.currentTimeMillis() + "\t";
 	}
 
 }

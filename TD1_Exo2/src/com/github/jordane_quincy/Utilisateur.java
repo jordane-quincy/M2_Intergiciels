@@ -16,7 +16,7 @@ public class Utilisateur extends Thread {
 	public void run() {
 		System.out.println("Thread utilisateur n°" + id);
 		while (true) {
-			Document doc = new Document(id, dureeImpression());
+			Document doc = new Document(id, generateDureeImpression());
 
 			while (!gestionnaire.ajouterDoc(doc)) {
 				try {
@@ -25,21 +25,25 @@ public class Utilisateur extends Thread {
 				}
 			}
 
-			System.out.println("Utilisateur n°" + id + " ajout doc ok");
+			System.out.println(getTimestamp() + "Utilisateur n°" + id + " ajout doc ok");
 
 			try {
-				Thread.currentThread().sleep(100);
+				Thread.currentThread().sleep(20000);
 			} catch (InterruptedException e) {
 			}
 		}
 	}
 
-	private int dureeImpression() {
+	private int generateDureeImpression() {
 		Random r = new Random();
 		int min = 1000;
 		int max = 10000;
 		int result = r.nextInt(max - min) + min;
 		return result;
+	}
+
+	public String getTimestamp() {
+		return System.currentTimeMillis() + "\t";
 	}
 
 }
