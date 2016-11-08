@@ -24,10 +24,9 @@ public class Gestionnaire extends Thread {
 				} catch (InterruptedException e) {
 				}
 
-				fileAttente.remove(index);
-
 				System.out.println("Fin impression du doc de l'utilisateur " + docToPrint.getIdUtilisateur());
 
+				fileAttente.remove(index);
 			}
 
 			try {

@@ -25,6 +25,8 @@ public class Utilisateur extends Thread {
 				}
 			}
 
+			System.out.println("Utilisateur n°" + id + " ajout doc ok");
+
 			try {
 				Thread.currentThread().sleep(100);
 			} catch (InterruptedException e) {
