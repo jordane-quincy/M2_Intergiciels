@@ -11,12 +11,13 @@ public class Tache implements Runnable{
 	private int exec_time_;
 	@Override
 	public void run() {
-		// TODO Auto-generated method stub
+		System.out.println("Debut " + name_);
 		try {
             MILLISECONDS.sleep(exec_time_);
         } catch (InterruptedException e) {
             // that's shit
         }
+		System.out.println("Fin " + name_);
 	}
 	public Tache(String name_, int exec_time_) {
 		super();
