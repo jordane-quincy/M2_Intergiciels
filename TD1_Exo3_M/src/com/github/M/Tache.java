@@ -1,4 +1,4 @@
-package com.github.jordane_quincy;
+package com.github.M;
 /*
  * @name nom de la tache
  * @exec_time_ temps d'execution de la tache avant dodo en ms
