@@ -9,11 +9,21 @@ import java.io.ObjectOutputStream;
 import java.text.ParseException;
 
 public class Journal {
+	protected Journal() throws IOException, SecurityException {
+		super();
+	}
+
 	private final static String FILENAME = "data.ser";
 
 	public static void main(String[] args) {
 		try {
 			writeNote();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		try {
+			readNote();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -29,10 +39,12 @@ public class Journal {
 		objectOutputStream.close();
 	}
 
-	public static void readNote() {
+	public static void readNote() throws FileNotFoundException, IOException, ClassNotFoundException {
 		ObjectInputStream objectInputStream = new ObjectInputStream(new FileInputStream(FILENAME));
 
 		Note noteSerialized = (Note) objectInputStream.readObject();
+
+		System.out.println(noteSerialized);
 
 		objectInputStream.close();
 	}
