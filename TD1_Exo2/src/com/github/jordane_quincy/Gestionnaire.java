@@ -12,11 +12,38 @@ public class Gestionnaire extends Thread {
 	public void run() {
 		System.out.println("Thread Gestionnaire");
 		while (true) {
+			if (!fileAttente.isEmpty()) {
+				int index = 0;
+				Document docToPrint = fileAttente.get(index);
+
+				System.out.println("Impression du doc de l'utilisateur " + docToPrint.getIdUtilisateur() + " ("
+						+ docToPrint.getDureeImpression() + ")");
+
+				try {
+					Thread.currentThread().sleep(docToPrint.getDureeImpression());
+				} catch (InterruptedException e) {
+				}
+
+				fileAttente.remove(index);
+
+				System.out.println("Fin impression du doc de l'utilisateur " + docToPrint.getIdUtilisateur());
+
+			}
+
 			try {
 				Thread.currentThread().sleep(100);
 			} catch (InterruptedException e) {
 			}
 		}
+	}
+
+	public synchronized boolean ajouterDoc(Document doc) {
+		boolean isAjoutOk = false;
+		if (fileAttente.size() <= TAILLE_FILE) {
+			fileAttente.add(doc);
+			isAjoutOk = true;
+		}
+		return isAjoutOk;
 	}
 
 }
