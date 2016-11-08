@@ -5,6 +5,7 @@ import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 public class Note implements Serializable {
@@ -31,6 +32,14 @@ public class Note implements Serializable {
 		this.date = dateParsed;
 		this.commentaire = commentaireInput;
 
+	}
+
+	public Note(int id) {
+		this.idEcrivain = id;
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.HOUR_OF_DAY, id);
+		this.date = calendar.getTime();
+		this.commentaire = "commentaire auteur " + id;
 	}
 
 	@Override
