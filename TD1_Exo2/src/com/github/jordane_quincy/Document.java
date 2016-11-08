@@ -21,4 +21,9 @@ public class Document {
 		this.dureeImpression = dureeImpression;
 	}
 
+	public Document(int idUtilisateur, int dureeImpression) {
+		this.idUtilisateur = idUtilisateur;
+		this.dureeImpression = dureeImpression;
+	}
+
 }
