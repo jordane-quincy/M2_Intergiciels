@@ -1,7 +1,11 @@
 package com.github.jordane_quincy;
 
-public class Role {
-	String theRole;
+import java.io.Serializable;
+
+public class Role implements Serializable {
+
+	private static final long serialVersionUID = -3014969947986932709L;
+	private String theRole;
 
 	public Role(String theRole) {
 		this.theRole = theRole;
