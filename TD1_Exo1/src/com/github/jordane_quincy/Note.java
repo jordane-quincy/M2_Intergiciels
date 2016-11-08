@@ -1,5 +1,7 @@
 package com.github.jordane_quincy;
 
+import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.Serializable;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -7,14 +9,14 @@ import java.util.Date;
 
 public class Note implements Serializable {
 
-	private static final long serialVersionUID = -1263091870841148920L;
-
 	private int idEcrivain;
 	private Date date;
 	private transient String commentaire;
 
-	private final String FORMAT_DATE = "yy/MM/dd";
-	private final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(FORMAT_DATE);
+	private static final long serialVersionUID = -1263091870841148920L;
+
+	private transient final String FORMAT_DATE = "yy/MM/dd";
+	private transient final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(FORMAT_DATE);
 
 	public Note() throws ParseException {
 		System.out.println("Veuillez saisir l'id");
@@ -36,10 +38,8 @@ public class Note implements Serializable {
 		return "Note [date=" + date + ", idEcrivain=" + idEcrivain + ", commentaire=" + commentaire + "]";
 	}
 
-	// private void readObject(java.io.ObjectInputStream stream) throws
-	// IOException, ClassNotFoundException {
-	// this.idEcrivain = stream.readInt();
-	// this.date = (Date) stream.readObject();
-	// this.commentaire = "commentaire inconnu";
-	// }
+	private void readObject(ObjectInputStream stream) throws IOException, ClassNotFoundException, ParseException {
+		stream.defaultReadObject();
+		this.commentaire = "commentaire inconnu";
+	}
 }
