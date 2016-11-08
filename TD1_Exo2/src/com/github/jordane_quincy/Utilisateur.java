@@ -20,7 +20,7 @@ public class Utilisateur extends Thread {
 
 			while (!gestionnaire.ajouterDoc(doc)) {
 				try {
-					Thread.currentThread().sleep(10 + id);
+					Thread.currentThread().sleep(10);
 				} catch (InterruptedException e) {
 				}
 			}
