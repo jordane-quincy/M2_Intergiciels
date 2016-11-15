@@ -6,7 +6,6 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
 public class ServerRMI {
 	public ServerRMI() throws RemoteException {
@@ -27,7 +26,7 @@ public class ServerRMI {
 		// UnicastRemoteObject.exportObject(crayon, 0);
 		// System.out.println("bind du produit :" + crayon);
 		// registry.bind("bindStubCrayon", stubCrayon);
-		//
+
 		Produit table = new Produit("table", 100);
 		enregistrerProduitDansLeRegistre(table, registry);
 
@@ -39,9 +38,14 @@ public class ServerRMI {
 
 	private static void enregistrerProduitDansLeRegistre(Produit produit, Registry registry)
 			throws AccessException, RemoteException, AlreadyBoundException {
-		ProduitItf stubProduit = (ProduitItf) UnicastRemoteObject.exportObject(produit, 0);
+		// Plus necessaire car l'implementation Produit extends
+		// UnicastRemoteObject :
+
+		// ProduitItf stubProduit = (ProduitItf)
+		// UnicastRemoteObject.exportObject(produit, 8080);
+
 		System.out.println("bind du produit :" + produit);
-		registry.bind(produit.getNom(), stubProduit);
+		registry.bind(produit.getNom(), produit);
 	}
 
 }

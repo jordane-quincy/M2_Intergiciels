@@ -1,13 +1,16 @@
 package com.github.jordane_quincy;
 
 import java.rmi.RemoteException;
+import java.rmi.server.UnicastRemoteObject;
 
-public class Produit implements ProduitItf {
+public class Produit extends UnicastRemoteObject implements ProduitItf {
+
+	private static final long serialVersionUID = 3488966906210038383L;
 
 	private String nom;
 	private double prix;
 
-	public Produit(String nom, double prix) {
+	public Produit(String nom, double prix) throws RemoteException {
 		this.nom = nom;
 		this.prix = prix;
 	}
@@ -18,7 +21,7 @@ public class Produit implements ProduitItf {
 	}
 
 	@Override
-	public void augmenter(double p) {
+	public void augmenter(double p) throws RemoteException {
 		this.prix = this.prix * (1 + p / 100);
 	}
 
@@ -28,7 +31,7 @@ public class Produit implements ProduitItf {
 	}
 
 	@Override
-	public String getNom() {
+	public String getNom() throws RemoteException {
 		return nom;
 	}
 
