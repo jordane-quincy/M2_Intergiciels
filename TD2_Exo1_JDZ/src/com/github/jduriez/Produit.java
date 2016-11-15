@@ -1,6 +1,8 @@
 package com.github.jduriez;
 
-public class Produit {
+import java.io.Serializable;
+
+public class Produit implements Serializable {
 	String nom;
 	double prix;
 	
