@@ -7,7 +7,12 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 
-public class Server implements Hello {
+public class Server extends UnicastRemoteObject implements Hello {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5772476845127678270L;
+
 	public Server() throws RemoteException{
 		
 	}
@@ -17,9 +22,9 @@ public class Server implements Hello {
 	
 	public static void main(String args[]) throws RemoteException, MalformedURLException, AlreadyBoundException {
 		Server obj = new Server();
-		Hello stub = (Hello) UnicastRemoteObject.exportObject(obj, 0);
+		//Hello stub = (Hello) UnicastRemoteObject.exportObject(obj, 0);
 		Registry registry = LocateRegistry.createRegistry(8080);
-	    registry.bind("Hello", stub);
+	    registry.bind("Hello", obj);
 		System.out.println("Server ready");
 		
 	}
