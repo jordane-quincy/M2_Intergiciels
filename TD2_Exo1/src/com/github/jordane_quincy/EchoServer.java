@@ -1,7 +1,9 @@
 package com.github.jordane_quincy;
 
-import java.net.*;
-import java.io.*;
+import java.io.DataInputStream;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
 
 public class EchoServer {
 	void doService(Socket clientSocket) {
@@ -13,13 +15,19 @@ public class EchoServer {
 		}
 	}
 
-public static void main(String[] args) {
-EchoServer echoServ= new EchoServer();
-ServerSocket listenSocket;
-try {
-listenSocket = new ServerSocket(Integer.parseInt(args[0])); // port
-while(true) {
-Socket clientSocket = listenSocket.accept();
-System.err.println("Connexion from:" + clientSocket.getInetAddress());
-echoserv.doService(clientSocket);
-} catch (Exception e) { System.err.println(e); }}}
+	public static void main(String[] args) {
+		EchoServer echoServ = new EchoServer();
+		ServerSocket listenSocket;
+		try {
+			listenSocket = new ServerSocket(Integer.parseInt(args[0])); // port
+			while (true) {
+				Socket clientSocket = listenSocket.accept();
+				System.err.println("Connexion from:" + clientSocket.getInetAddress());
+				echoServ.doService(clientSocket);
+			}
+		} catch (Exception e) {
+			System.err.println(e);
+		}
+
+	}
+}
