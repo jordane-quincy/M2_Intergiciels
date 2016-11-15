@@ -6,7 +6,7 @@ import java.io.ObjectOutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class EchoServer {
+public class EchoServer extends Thread{
 	
 	private static final int PORT = 8080;
 	private static final String HOST = "localhost";
@@ -25,29 +25,35 @@ public class EchoServer {
 		outputToClient = new ObjectOutputStream(clientSocket.getOutputStream());
 		inputFromClient = new ObjectInputStream(clientSocket.getInputStream());
 		
-		System.out.println("tentative de lecture");
+		System.out.println("Reception produit du client " + inputFromClient.readObject());
 		Produit p = (Produit) inputFromClient.readObject();
 		System.out.println("on récupère : " + p);
 		p.augmenter(15);
 		System.out.println("on renvoie : " + p);
-		outputToClient.writeObject(p);
-		
+		System.out.println("fin com");
+		outputToClient.writeObject(p);		
 		outputToClient.close();
-		inputFromClient.close();
-		
+		inputFromClient.close();	
 	}
 
-	public static void main(String[] args) {
-		EchoServer echoServ = new EchoServer();
+	public void run () {
+		System.out.println("Lancement du thread Serveur");
+		
 		ServerSocket listenSocket;
 		try {
 			listenSocket = new ServerSocket(PORT); // port
-			Socket clientSocket = listenSocket.accept();
-			System.err.println("Connexion from:" + clientSocket.getInetAddress());
-			echoServ.doService(clientSocket);			
+			
+			while(true) {
+				Socket clientSocket = listenSocket.accept();
+				System.err.println("Connexion from:" + clientSocket.getInetAddress());
+				doService(clientSocket);
+			}
+			
+			
 		} catch (Exception e) {
 			System.err.println(e);
 		}
-
+		
 	}
+	
 }

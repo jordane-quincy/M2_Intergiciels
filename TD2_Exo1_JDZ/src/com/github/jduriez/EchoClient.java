@@ -8,17 +8,24 @@ import java.io.PrintStream;
 import java.net.Socket;
 import java.rmi.UnknownHostException;
 
-public class EchoClient {
+public class EchoClient extends Thread {
 	
 	private static final String HOST = "localhost";
 	private static final int PORT = 8080;
 	
-	public static void main(String[] args) throws ClassNotFoundException {
+	String nomProduit;
+	double prixProduit;
+	int id;
+	
+	public EchoClient(int _id, String _nomProduit, double _prixProduit) {
+		this.nomProduit = _nomProduit;
+		this.prixProduit = _prixProduit;
+		this.id = _id;
+	}
+	
+	public void run() {
+		System.out.println("Lancement du thread Client " + id);
 		Socket theSocket;
-		DataInputStream theInputStream;
-		DataInputStream userInput;
-		PrintStream theOutputStream;
-		String theLine;
 		ObjectOutputStream toServer;
 		ObjectInputStream fromServer;
 		
@@ -28,11 +35,12 @@ public class EchoClient {
 			
 			toServer = new ObjectOutputStream(theSocket.getOutputStream());
 			fromServer = new ObjectInputStream(theSocket.getInputStream());
-			Produit p = new Produit("ordi", 100);
-			
+			Produit p = new Produit(nomProduit, prixProduit);
+			System.out.println("Le client " + id + " envoie le produit : " + p);
+			toServer.writeObject(id);
 			toServer.writeObject(p);
 			//toServer.flush();
-			System.out.println(fromServer.readObject());
+			System.out.println("Le client " + id + " reçoit le produit : "  + fromServer.readObject());
 			
 			toServer.close();
 			fromServer.close();
@@ -53,6 +61,9 @@ public class EchoClient {
 			System.err.println(e);
 		} catch (IOException e) {
 			System.err.println(e);
+		} catch (ClassNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
 		}
 	}
 }
