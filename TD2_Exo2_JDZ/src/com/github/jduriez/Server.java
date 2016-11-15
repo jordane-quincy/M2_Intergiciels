@@ -5,26 +5,17 @@ import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
-import java.rmi.server.UnicastRemoteObject;
 
-public class Server extends UnicastRemoteObject implements Hello {
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = -5772476845127678270L;
-
-	public Server() throws RemoteException{
-		
-	}
-	public String sayHello() throws RemoteException {
-		return "Hello, world!";
-	}
+public class Server {
 	
 	public static void main(String args[]) throws RemoteException, MalformedURLException, AlreadyBoundException {
-		Server obj = new Server();
+		
+		Produit p = new Produit("ordi", 10);
+		Produit p2 = new Produit("telephone", 800);
 		//Hello stub = (Hello) UnicastRemoteObject.exportObject(obj, 0);
 		Registry registry = LocateRegistry.createRegistry(8080);
-	    registry.bind("Hello", obj);
+	    registry.bind("Produit1", p);
+	    registry.bind("Produit2", p);
 		System.out.println("Server ready");
 		
 	}

@@ -13,9 +13,18 @@ public class Client {
 		// TODO Auto-generated method stub
 		String host = "localhost";
 		Registry registry = LocateRegistry.getRegistry(host, 8080);
-		Hello stub = (Hello)registry.lookup("Hello");
-		String response = stub.sayHello();
-		System.out.println("response : " + response);
+		ProduitItf stub = (ProduitItf)registry.lookup("Produit");
+		double price = stub.getPrice();
+		System.out.println("Prix du produit : " + price);
+		if (price < 20) {
+			stub.augmenterPrix(30);
+		}
+		ProduitItf stub2 = (ProduitItf) registry.lookup("Produit1");
+		System.out.println("Nouveau prix du produit : " + stub2.getPrice());
+		
+		
+		ProduitItf stub3 = (ProduitItf) registry.lookup("Produit2");
+		
 		
 	}
 
