@@ -11,13 +11,6 @@ public class EchoServer {
 	private static final int PORT = 8080;
 
 	void doService(Socket clientSocket) throws IOException {
-		// DataInputStream in = new
-		// DataInputStream(clientSocket.getInputStream());
-		// PrintStream out = new PrintStream(clientSocket.getOutputStream());
-		// while (true) {
-		// String theLine = in.readLine();
-		// out.println(theLine);
-		// }
 
 		ObjectInputStream ios;
 		ObjectOutputStream oos;
@@ -32,6 +25,8 @@ public class EchoServer {
 					System.out.println("produitRecu : " + produitRecu);
 
 					produitRecu.augmenter(15);
+
+					System.out.println("produitRecu une fois augmenter" + produitRecu);
 
 					oos.writeObject(produitRecu);
 				} else {
@@ -51,6 +46,7 @@ public class EchoServer {
 		EchoServer echoServ = new EchoServer();
 		ServerSocket listenSocket;
 		try {
+			System.out.println("Serveur en écoute sur le port " + PORT);
 			listenSocket = new ServerSocket(PORT);
 			while (true) {
 				Socket clientSocket = listenSocket.accept();
