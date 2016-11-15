@@ -1,5 +1,10 @@
 package com.github.jduriez;
 
+import java.io.DataInputStream;
+import java.io.PrintStream;
+import java.net.ServerSocket;
+import java.net.Socket;
+
 public class EchoServer {
 	void doService(Socket clientSocket) {
 		DataInputStream in = new DataInputStream(clientSocket.getInputStream());
