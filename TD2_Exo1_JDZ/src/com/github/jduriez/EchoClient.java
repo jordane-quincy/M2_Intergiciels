@@ -7,6 +7,10 @@ import java.net.Socket;
 import java.rmi.UnknownHostException;
 
 public class EchoClient {
+	
+	private static final String HOST = "localhost";
+	private static final int PORT = 8080;
+	
 	public static void main(String[] args) {
 		Socket theSocket;
 		DataInputStream theInputStream;
@@ -14,7 +18,7 @@ public class EchoClient {
 		PrintStream theOutputStream;
 		String theLine;
 		try {
-			theSocket = new Socket(args[0], Integer.parseInt(args[1]));
+			theSocket = new Socket(HOST, PORT);
 			theInputStream = new DataInputStream(theSocket.getInputStream());
 			theOutputStream = new PrintStream(theSocket.getOutputStream());
 			userInput = new DataInputStream(System.in);
