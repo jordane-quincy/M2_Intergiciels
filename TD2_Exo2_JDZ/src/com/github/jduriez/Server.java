@@ -15,7 +15,7 @@ public class Server {
 		//Hello stub = (Hello) UnicastRemoteObject.exportObject(obj, 0);
 		Registry registry = LocateRegistry.createRegistry(8080);
 	    registry.bind("Produit1", p);
-	    registry.bind("Produit2", p);
+	    registry.bind("Produit2", p2);
 		System.out.println("Server ready");
 		
 	}
